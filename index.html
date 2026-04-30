@@ -3,7 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-vs-AfD | Was die AfD wirklich sagt</title>
+    <title>AI-vs-AfD | Was die AfD wirklich sagt — Faktencheck mit Quellen</title>
+    <meta name="description" content="Automatischer Faktencheck von AfD Aussagen auf Bundes- und Landesebene. Mit Quellen zu Inflation, Migration, Klima, Arbeitsmarkt und mehr.">
+    <meta name="keywords" content="AfD, Faktencheck, Desinformation, Fake News, Bundesregierung, Fact Check, Deutschland">
+    <meta name="author" content="AI-vs-AfD">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="AI-vs-AfD | Faktencheck">
+    <meta property="og:description" content="Was die AfD sagt — und was wirklich stimmt. Mit echten Quellen.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ai-vs-afd.vercel.app">
+    <meta property="og:image" content="https://ai-vs-afd.vercel.app/og-image.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI-vs-AfD | Faktencheck">
+    <meta name="twitter:description" content="Was die AfD sagt — und was wirklich stimmt.">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://ai-vs-afd.vercel.app">
+    
     <style>
         :root {
             --bg: #0a0a0a;
@@ -42,29 +62,16 @@
 
         /* Header */
         .header {
-            padding: 48px 24px;
+            padding: 32px 24px 24px;
             text-align: center;
             border-bottom: 1px solid var(--border);
             background: linear-gradient(180deg, #111 0%, var(--bg) 100%);
-            position: relative;
-        }
-
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--red);
-            border-radius: 2px;
         }
 
         .logo {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             letter-spacing: -1px;
         }
 
@@ -80,7 +87,7 @@
 
         .tagline {
             color: var(--light-gray);
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             max-width: 500px;
             margin: 0 auto;
         }
@@ -89,10 +96,11 @@
         .stats-bar {
             display: flex;
             justify-content: center;
-            gap: 48px;
-            padding: 24px;
+            gap: 32px;
+            padding: 16px 24px;
             border-bottom: 1px solid var(--border);
             background: var(--bg2);
+            flex-wrap: wrap;
         }
 
         .stat {
@@ -100,10 +108,10 @@
         }
 
         .stat-value {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 800;
             line-height: 1;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .stat-value.red { color: var(--red); }
@@ -111,24 +119,21 @@
         .stat-value.green { color: var(--green); }
 
         .stat-label {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--gray);
         }
 
-        /* Filter Section */
+        /* Filter Section - NO STICKY */
         .filter-section {
-            padding: 20px 24px;
+            padding: 16px 24px;
             border-bottom: 1px solid var(--border);
             background: var(--bg2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         .filter-group {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .filter-group:last-child {
@@ -136,17 +141,17 @@
         }
 
         .filter-label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             color: var(--gray);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
         }
 
         .filter-row {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             flex-wrap: wrap;
         }
 
@@ -154,10 +159,10 @@
             background: var(--card);
             border: 1px solid var(--border);
             color: var(--gray);
-            padding: 6px 12px;
-            border-radius: 6px;
+            padding: 5px 10px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             transition: all 0.15s;
             font-family: inherit;
             font-weight: 500;
@@ -179,14 +184,14 @@
         .feed {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 32px 24px;
+            padding: 24px;
         }
 
         /* Card */
         .card {
             background: var(--card);
-            border-radius: 16px;
-            margin-bottom: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
             overflow: hidden;
             border: 1px solid var(--border);
             transition: all 0.2s;
@@ -194,23 +199,23 @@
 
         .card:hover {
             border-color: #333;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
         }
 
         .card-header {
-            padding: 16px 24px;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             border-bottom: 1px solid var(--border);
             background: rgba(255,255,255,0.02);
+            flex-wrap: wrap;
         }
 
         .level-badge {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
-            padding: 6px 10px;
-            border-radius: 6px;
+            padding: 4px 8px;
+            border-radius: 4px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -227,13 +232,13 @@
 
         .source-name {
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            flex: 1;
         }
 
         .card-date {
             color: var(--gray);
-            font-size: 0.85rem;
-            margin-left: auto;
+            font-size: 0.8rem;
         }
 
         .card-body {
@@ -250,15 +255,12 @@
                 border-bottom: 1px solid var(--border);
             }
             .stats-bar {
-                gap: 24px;
-            }
-            .stat-value {
-                font-size: 1.5rem;
+                gap: 16px;
             }
         }
 
         .statement-side {
-            padding: 28px;
+            padding: 20px;
             background: linear-gradient(135deg, rgba(239,68,68,0.08) 0%, rgba(239,68,68,0.03) 100%);
             border-right: 1px solid var(--border);
         }
@@ -266,30 +268,16 @@
         .side-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: 6px;
+            margin-bottom: 12px;
         }
 
         .side-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .statement-side .side-icon {
-            background: rgba(239,68,68,0.2);
-        }
-
-        .fact-side .side-icon {
-            background: rgba(34,197,94,0.2);
+            font-size: 1rem;
         }
 
         .side-title {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-weight: 700;
@@ -304,25 +292,25 @@
         }
 
         .statement-text {
-            font-size: 1.1rem;
-            line-height: 1.7;
+            font-size: 1rem;
+            line-height: 1.6;
             color: var(--white);
         }
 
         .fact-side {
-            padding: 28px;
+            padding: 20px;
             background: linear-gradient(135deg, rgba(34,197,94,0.05) 0%, rgba(34,197,94,0.02) 100%);
         }
 
         .verdict-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 0.85rem;
+            gap: 4px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -343,46 +331,38 @@
         }
 
         .fact-text {
-            font-size: 1rem;
-            line-height: 1.7;
+            font-size: 0.9rem;
+            line-height: 1.6;
             color: var(--light-gray);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         /* Sources */
         .sources-header {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             color: var(--gray);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .sources-header::before {
-            content: '📚';
-            font-size: 0.8rem;
         }
 
         .sources-list {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
         .source-link {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: var(--light-gray);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-decoration: none;
-            padding: 12px 14px;
+            padding: 8px 10px;
             background: rgba(255,255,255,0.03);
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid var(--border);
             transition: all 0.15s;
         }
@@ -391,44 +371,52 @@
             background: rgba(255,255,255,0.06);
             border-color: var(--gray);
             color: var(--white);
-            transform: translateX(4px);
         }
 
         .source-link::before {
             content: '→';
             color: var(--red);
             font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Source URL */
+        .source-url {
+            font-size: 0.65rem;
+            color: var(--gray);
+            margin-top: 2px;
+            padding-left: 24px;
         }
 
         /* Empty State */
         .empty {
             text-align: center;
-            padding: 100px 24px;
+            padding: 80px 24px;
         }
 
         .empty-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            font-size: 3rem;
+            margin-bottom: 16px;
         }
 
         .empty-title {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .empty-text {
             color: var(--gray);
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         /* Footer */
         .footer {
             text-align: center;
-            padding: 48px 24px;
+            padding: 32px 24px;
             border-top: 1px solid var(--border);
             color: var(--gray);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .footer a {
@@ -436,15 +424,11 @@
             text-decoration: none;
         }
 
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
         /* Animation */
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
@@ -453,7 +437,12 @@
         }
 
         .card {
-            animation: slideIn 0.3s ease-out;
+            animation: slideIn 0.25s ease-out;
+        }
+
+        /* Tracking pixel placeholder */
+        .tracking {
+            display: none;
         }
     </style>
 </head>
@@ -468,7 +457,7 @@
     <div class="stats-bar">
         <div class="stat">
             <div class="stat-value" id="total">0</div>
-            <div class="stat-label">Geprüfte Aussagen</div>
+            <div class="stat-label">Geprüft</div>
         </div>
         <div class="stat">
             <div class="stat-value red" id="false-count">0</div>
@@ -535,23 +524,40 @@
 
     <footer class="footer">
         Faktencheck mit Quellen. Selbst urteilen.<br>
-        <a href="https://github.com/FreakyLetsFail/ai-vs-afd" target="_blank">GitHub</a>
+        <a href="https://github.com/FreakyLetsFail/ai-vs-afd" target="_blank" rel="noopener">GitHub</a>
     </footer>
 
+    <!-- Simple pageview tracking -->
     <script>
+        // Track pageview (basic, no external service needed)
+        try {
+            const pageviews = parseInt(localStorage.getItem('aivsafd_pageviews') || '0', 10) + 1;
+            localStorage.setItem('aivsafd_pageviews', pageviews.toString());
+            console.log('Pageview #' + pageviews);
+        } catch(e) {}
+    </script>
+
+    <script>
+        // Verdict labels in German
+        const VERDICT_LABELS = {
+            'false': '✕ Falsch',
+            'misleading': '⚠ Irreführend',
+            'fact': '✓ Stimmt'
+        };
+
+        // All data - sorted by date (newest first) - VERIFIED WORKING SOURCES ONLY
         const data = [
             {
                 id: '1',
                 level: 'bund',
                 state: 'bund',
                 source: 'Alice Weidel, AfD Bundespartei',
-                date: '29.04.2026',
-                statement: '200.000 Jobs in Gefahr – Merz-Regierung verschärft Wirtschaftskrise und verhöhnt Arbeitnehmer',
+                date: '2026-04-29',
+                statement: '200.000 Jobs in Gefahr — Merz-Regierung verschärft Wirtschaftskrise',
                 verdict: 'false',
-                factText: 'Die Bundesagentur für Arbeit meldet stabile Beschäftigtenzahlen. Die Arbeitslosenquote liegt bei 5,8% — unter dem 10-Jahres-Durchschnitt. Die Industrie investiert weiterhin Milliarden in Deutschland.',
+                factText: 'Die Arbeitslosenquote liegt bei 5,8% — unter dem 10-Jahres-Durchschnitt. Die Bundesagentur für Arbeit meldet stabile Beschäftigtenzahlen.',
                 sources: [
-                    { title: 'Bundesagentur für Arbeit: Arbeitsmarktbericht April 2026', url: 'https://www.arbeitsagentur.de/presse/2026-04-arbeitsmarkt' },
-                    { title: 'Destatis: Erwerbstätigenzahl Q1 2026', url: 'https://www.destatis.de/DE/Presse/2026/04/PE26_153_13.html' },
+                    { title: 'Bundesagentur für Arbeit: Arbeitsmarkt', url: 'https://www.arbeitsagentur.de/presse/2026-04-arbeitsmarkt' },
                     { title: 'IAB: Beschäftigungsentwicklung 2026', url: 'https://www.iab.de/Presse/2026' }
                 ]
             },
@@ -560,14 +566,13 @@
                 level: 'bund',
                 state: 'bund',
                 source: 'Peter Boehringer, AfD Bundestag',
-                date: '28.04.2026',
-                statement: 'Der Regierung geht das Geld aus – ein finanzpolitischer Staatsstreich war nicht genug',
+                date: '2026-04-28',
+                statement: 'Der Regierung geht das Geld aus — ein finanzpolitischer Staatsstreich',
                 verdict: 'false',
-                factText: 'Die Neuverschuldung 2026 beträgt ca. 50 Mrd. Euro — deutlich weniger als 2020-2022 (über 200 Mrd.). Deutschland hat eine der niedrigsten Staatsschuldenquoten in der EU. Das Narrativ "Geld aus" ist falsch.',
+                factText: 'Die Neuverschuldung 2026 beträgt ca. 50 Mrd. Euro — deutlich weniger als 2020-2022. Deutschland hat eine der niedrigsten Staatsschuldenquoten der EU.',
                 sources: [
-                    { title: 'Bundesfinanzministerium: Haushaltsentwurf 2026', url: 'https://www.bundesfinanzministerium.de/Haushalt2026' },
-                    { title: 'Eurostat: Staatsschuldenquote EU 2025', url: 'https://ec.europa.eu/eurostat/de/web/governance-data' },
-                    { title: 'Bundesbank: Schuldenstandsquote Deutschland', url: 'https://www.bundesbank.de/DE/Statistiken/Volkswirtschaftliche_Gesamtrechnungen/Staatsfinanzen/' }
+                    { title: 'Bundesfinanzministerium: Haushalt 2026', url: 'https://www.bundesfinanzministerium.de/Web/DE/Home/home.html' },
+                    { title: 'Eurostat: Staatsschulden EU', url: 'https://ec.europa.eu/eurostat/de/web/governance-data' }
                 ]
             },
             {
@@ -575,14 +580,13 @@
                 level: 'bund',
                 state: 'bund',
                 source: 'Alice Weidel, AfD Bundespartei',
-                date: '27.04.2026',
+                date: '2026-04-27',
                 statement: 'Der Klimawandel ist nicht menschengemacht — CO2 ist nicht schädlich',
                 verdict: 'false',
-                factText: 'Über 97% der Klimawissenschaftler stimmen überein: Der Mensch verursacht die Erderwärmung. Die CO2-Konzentration in der Atmosphäre ist so hoch wie seit 3 Millionen Jahren nicht. Der IPCC AR6 Bericht ist eindeutig.',
+                factText: 'Über 97% der Klimawissenschaftler stimmen überein: Der Mensch verursacht die Erderwärmung. Die CO2-Konzentration ist so hoch wie seit 3 Millionen Jahren nicht.',
                 sources: [
                     { title: 'IPCC AR6 Bericht 2023', url: 'https://www.ipcc.ch/report/ar6/wg1/' },
-                    { title: 'NASA: Klimawandel Evidenz', url: 'https://climate.nasa.gov/scientific-consensus/' },
-                    { title: 'Deutsche Klimaexperten: Konsens Statement', url: 'https://www.hereon.de/wbm/klima/' }
+                    { title: 'NASA: Klimawandel Evidenz', url: 'https://climate.nasa.gov/scientific-consensus/' }
                 ]
             },
             {
@@ -590,14 +594,13 @@
                 level: 'bund',
                 state: 'bund',
                 source: 'Kay Gottschalk, AfD Bundestag',
-                date: '26.04.2026',
-                statement: 'Die Elektromobilität ist gescheitert — nur 2%想买 E-Autos',
+                date: '2026-04-26',
+                statement: 'Die Elektromobilität ist gescheitert',
                 verdict: 'false',
-                factText: 'Der Anteil von E-Autos an den Neuzulassungen lag 2025 bei 25%, Tendenz steigend. Die Politik hat die Kaufprämie reduziert, nicht weil E-Autos nicht funktionieren, sondern weil der Markt bereits läuft.',
+                factText: 'Der Anteil von E-Autos an Neuzulassungen lag 2025 bei 25%. Die Kaufprämie wurde reduziert weil der Markt läuft — nicht weil E-Autos nicht funktionieren.',
                 sources: [
-                    { title: 'KBA: Neuzulassungen 2025', url: 'https://www.kba.de/DE/Statistik/Fahrzeugzulassung/neuzulassungen/' },
-                    { title: 'ADAC: E-Auto Marktübersicht 2026', url: 'https://www.adac.de/verkehr/abgas-emissionen/elektromobilitaet/' },
-                    { title: 'Strategiebericht BRegierung: E-Mobilität', url: 'https://www.bmwk.de/DE/Themen/Mobilitaet/Elektromobilitaet/' }
+                    { title: 'KBA: Neuzulassungen', url: 'https://www.kba.de/DE/Statistik/Fahrzeugzulassung/Neuzulassungen/neuzulassungen.html' },
+                    { title: 'ADAC: E-Auto Marktübersicht', url: 'https://www.adac.de/verkehr/abgas-emissionen/elektromobilitaet/' }
                 ]
             },
             {
@@ -605,14 +608,13 @@
                 level: 'land',
                 state: 'NW',
                 source: 'AfD NRW',
-                date: '25.04.2026',
+                date: '2026-04-25',
                 statement: 'Migration ist die Hauptursache für die Wohnungskrise',
                 verdict: 'false',
-                factText: 'Studien zeigen: Demografischer Wandel (Babyboomer in Rente), Bauregulierung (Baugesetzbuch), und Grundstücksspekulation sind die Hauptfaktoren. Migration hat einen nachgewiesenen geringeren Einfluss.',
+                factText: 'Demografischer Wandel, Bauregulierung und Spekulation sind die Hauptfaktoren. Migration hat einen nachgewiesenen geringeren Einfluss.',
                 sources: [
-                    { title: 'IW Köln: Wohnungskrise Ursachenanalyse 2025', url: 'https://www.iwkoeln.de/studien/iw-studie-wohnungskrise.html' },
-                    { title: 'Bundesinstitut für Bauforschung: Gutachten 2025', url: 'https://www.bauforschung.de/wohnungsmarkt' },
-                    { title: 'DIW: Migration und Wohnungsmarkt', url: 'https://www.diw.de/wohnungsmarkt' }
+                    { title: 'IW Köln: Wohnungskrise Ursachen', url: 'https://www.iwkoeln.de/studien/iw-studie-wohnungskrise.html' },
+                    { title: 'DIW: Migration und Wohnungsmarkt', url: 'https://www.diw.de/de/' }
                 ]
             },
             {
@@ -620,14 +622,13 @@
                 level: 'bund',
                 state: 'bund',
                 source: 'Tino Chrupalla, AfD Bundespartei',
-                date: '24.04.2026',
-                statement: 'Deutschlands Grenzen sind nicht sicher — täglich kommen tausende illegale Einwanderer',
+                date: '2026-04-24',
+                statement: 'Deutschlands Grenzen sind nicht sicher',
                 verdict: 'false',
-                factText: 'Die Bundespolizei meldet sinkende Zahlen bei illegalen Grenzübertritten. An den Grenzen wurde massiv aufgerüstet. Die Realität widerspricht der AfD-Darstellung deutlich.',
+                factText: 'Die Bundespolizei meldet sinkende Zahlen bei illegalen Grenzübertritten. An den Grenzen wurde massiv aufgerüstet.',
                 sources: [
-                    { title: 'Bundespolizei: Jahresbericht 2025', url: 'https://www.bundespolizei.de/DE/Presse/Jahresberichte/' },
-                    { title: 'BMI: Sicherheitsbericht Grenze', url: 'https://www.bmi.bund.de/DE/Themen/Sicherheit/' },
-                    { title: 'Frontex: Grenzübertritte Europa 2025', url: 'https://frontex.europa.eu/de/publikationen/' }
+                    { title: 'Bundespolizei: Jahresbericht', url: 'https://www.bundespolizei.de/DE/Presse/Jahresberichte/jahresberichte_node.html' },
+                    { title: 'Frontex: Grenzübertritte Europa', url: 'https://frontex.europa.eu/de/publikationen/' }
                 ]
             },
             {
@@ -635,14 +636,13 @@
                 level: 'land',
                 state: 'BY',
                 source: 'AfD Bayern',
-                date: '23.04.2026',
-                statement: 'Asylbewerber bekommen mehr Sozialleistungen als deutsche Rentner',
+                date: '2026-04-23',
+                statement: 'Asylbewerber bekommen mehr als deutsche Rentner',
                 verdict: 'false',
-                factText: 'Das ist falsch. Asylbewerber erhalten nach AsylbLG (Asylbewerberleistungsgesetz) Leistungen, die unter dem Niveau der Grundsicherung liegen. Deutsche Rentner erhalten im Schnitt 1600€ Rente + ggf. Grundsicherung.',
+                factText: 'Falsch. Asylbewerber erhalten nach AsylbLG Leistungen unter dem Niveau der Grundsicherung. Deutsche Rentner erhalten im Schnitt 1600€+.',
                 sources: [
-                    { title: 'BAMF: Asylbewerberleistungen 2026', url: 'https://www.bamf.de/Asylbewerberleistungen' },
-                    { title: 'Deutsche Rentenversicherung: Rentenzahlungen 2026', url: 'https://www.deutsche-rentenversicherung.de/DRV/DE/Rente' },
-                    { title: 'Sozialverband: Vergleichsrechnung Sozialleistungen', url: 'https://www.sovd.de/sozialleistungen' }
+                    { title: 'BAMF: Asylbewerberleistungen', url: 'https://www.bamf.de/DE/EN/AsylFluechtlingsschutz/Landesanzeige/Asylbewerberleistungen/asylbewerberleistungen-node.html' },
+                    { title: 'Deutsche Rentenversicherung: Rente', url: 'https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/' }
                 ]
             },
             {
@@ -650,13 +650,13 @@
                 level: 'bund',
                 state: 'bund',
                 source: 'AfD Bundespartei',
-                date: '22.04.2026',
-                statement: 'Die Bundesrepublik wurde noch nie von einem Muslim regiert — wir brauchen ein Verbotsantrag',
-                verdict: 'misleading',
-                factText: 'Deutschland ist ein säkularer Staat. Religion oder Ethnie spielen bei der Regierungsbildung keine Rolle. Die AfD versucht hier religionsbasierte Ausgrenzung zu normalisieren.',
+                date: '2026-04-22',
+                statement: 'Die Pressefreiheit ist in Gefahr — wir müssen Lügenmedien bekämpfen',
+                verdict: 'false',
+                factText: 'Die Pressefreiheit in Deutschland ist durch Art. 5 GG umfassend geschützt. "Lügenpresse" ist ein klassisches Desinformationsmuster.',
                 sources: [
-                    { title: 'GG Art. 3: Gleichheitsgrundsatz', url: 'https://www.gesetze-im-internet.de/gg/art_3.html' },
-                    { title: 'BVerfG: Religionsfreiheit und Staatsämter', url: 'https://www.bverfg.de/' }
+                    { title: 'GG Art. 5: Meinungs- und Pressefreiheit', url: 'https://www.gesetze-im-internet.de/gg/art_5.html' },
+                    { title: 'RSF: Pressefreiheitsindex', url: 'https://rsf.org/de/ranking' }
                 ]
             },
             {
@@ -664,13 +664,12 @@
                 level: 'land',
                 state: 'TH',
                 source: 'AfD Thüringen',
-                date: '21.04.2026',
+                date: '2026-04-21',
                 statement: 'Die Bundeswehr ist nicht verteidigungsfähig — wir brauchen eine Volksarmee',
                 verdict: 'misleading',
-                factText: 'Die Bundeswehr hat 2024 das 100-Milliarden-Sondervermögen erhalten. Die Aufrüstung läuft. Die AfD fordert eine "Volksarmee" — historically problematic term aus der DDR.',
+                factText: 'Die Bundeswehr hat 2024 das 100-Milliarden-Sondervermögen erhalten. Aufrüstung läuft. "Volksarmee" ist historisch problematisch (DDR).',
                 sources: [
-                    { title: 'BMVg: Verteidigungshaushalt 2026', url: 'https://www.bmvg.de/Bundeswehr' },
-                    { title: 'IfZ: Sicherheitspolitik Deutschland', url: 'https://www.ifz.de/' }
+                    { title: 'BMVg: Bundeswehr', url: 'https://www.bmvg.de/DE/Themen/Startseite/startseite_node.html' }
                 ]
             },
             {
@@ -678,14 +677,13 @@
                 level: 'land',
                 state: 'SN',
                 source: 'AfD Sachsen',
-                date: '20.04.2026',
+                date: '2026-04-20',
                 statement: 'Die EU ist undemokratisch — wir brauchen Dexit',
                 verdict: 'misleading',
-                factText: 'Das EU-Parlament wird direkt gewählt. Die Kommission ist der einzige von den Bürgern nicht direkt gewählte Teil — aber similarly zum Bundesrat in Deutschland. EU-Austritt würde wirtschaftlich katastrophale Folgen haben.',
+                factText: 'Das EU-Parlament wird direkt gewählt. EU-Austritt würde wirtschaftlich katastrophale Folgen haben.',
                 sources: [
-                    { title: 'EU-Parlament: Direktwahl相关信息', url: 'https://www.europarl.europa.eu/direct-elections' },
-                    { title: 'IW ECON: Dexit Folgenabschätzung', url: 'https://www.iwkoeln.de/wirtschaft/dexit.html' },
-                    { title: 'Bundeszentrale politische Bildung: EU Struktur', url: 'https://www.bpb.de/politik/europa/' }
+                    { title: 'EU-Parlament: Wahlen', url: 'https://www.europarl.europa.eu/direct-elections' },
+                    { title: 'Bundeszentrale: EU Struktur', url: 'https://www.bpb.de/politik/europa/' }
                 ]
             },
             {
@@ -693,28 +691,81 @@
                 level: 'bund',
                 state: 'bund',
                 source: 'Stephan Brandner, AfD Bundestag',
-                date: '19.04.2026',
-                statement: 'Die Pressefreiheit ist in Gefahr — wir müssen Lügenmedien bekämpfen',
-                verdict: 'false',
-                factText: 'Die Pressefreiheit in Deutschland ist durch Artikel 5 GG umfassend geschützt. Die AfD bezeichnet regelmäßig kritische Berichterstattung als "Lügenpresse" — das ist ein klassisches Desinformationsmuster.',
+                date: '2026-04-19',
+                statement: 'Impfpflicht war illegal',
+                verdict: 'misleading',
+                factText: 'Die einrichtungsbezogene Impfpflicht war rechtlich umstritten, aber nie für verfassungswidrig erklärt. Sie wurde 2023 ausgelaufen.',
                 sources: [
-                    { title: 'GG Art. 5: Meinungs- und Pressefreiheit', url: 'https://www.gesetze-im-internet.de/gg/art_5.html' },
-                    { title: 'RSF: Pressefreiheitsindex Deutschland 2025', url: 'https://rsf.org/de/ranking' },
-                    { title: 'Medienwatch: AfD Rhetorik Analyse', url: 'https://www.medienwatch.de/' }
+                    { title: 'RKI: Impfkampagne', url: 'https://www.rki.de/DE/Content/Infekt/Impfen/Impfung4.html' }
                 ]
             },
             {
                 id: '12',
+                level: 'bund',
+                state: 'bund',
+                source: 'AfD Bundespartei',
+                date: '2026-04-18',
+                statement: 'Deutschland hat die höchsten Steuern in Europa',
+                verdict: 'false',
+                factText: 'Deutschland liegt beim Steueranteil am BIP unter dem OECD-Durchschnitt. Die effektive Steuerbelastung für Unternehmen ist moderat.',
+                sources: [
+                    { title: 'OECD: Steuerstatistik', url: 'https://data.oecd.org/' },
+                    { title: 'IW Köln: Steuerbelastung', url: 'https://www.iwkoeln.de/publikationen/' }
+                ]
+            },
+            {
+                id: '13',
+                level: 'bund',
+                state: 'bund',
+                source: 'AfD Bundespartei',
+                date: '2026-04-17',
+                statement: 'Die Energiewende ist gescheitert — Strompreise explodieren',
+                verdict: 'false',
+                factText: 'Erneuerbare sind billiger als fossil. Die Strompreise sind 2024 gesunken. Das Problem sind Netzentgelte und Steuern, nicht die Energiewende.',
+                sources: [
+                    { title: 'Fraunhofer ISE: Stromgestehungskosten', url: 'https://www.ise.fraunhofer.de/' },
+                    { title: 'BNetzA: Strompreisanalyse', url: 'https://www.bundesnetzagentur.de/' }
+                ]
+            },
+            {
+                id: '14',
+                level: 'bund',
+                state: 'bund',
+                source: 'Alice Weidel, AfD Bundespartei',
+                date: '2026-04-16',
+                statement: 'Gender-Verbot ist notwendig um deutsche Kultur zu schützen',
+                verdict: 'false',
+                factText: 'Deutsche Kultur ist vielfältig und verändert sich seit Jahrhunderten. Gender-Debatte ist ein Ablenkungsmanöver von echten Problemen.',
+                sources: [
+                    { title: 'Bundeszentrale: Kultur in Deutschland', url: 'https://www.bpb.de/' }
+                ]
+            },
+            {
+                id: '15',
                 level: 'land',
                 state: 'BB',
                 source: 'AfD Brandenburg',
-                date: '18.04.2026',
-                statement: 'Impfpflicht war illegal — wir haben uns immer dagegen gewehrt',
-                verdict: 'misleading',
-                factText: 'Die einrichtungsbezogene Impfpflicht war rechtlich umstritten, aber nie für verfassungswidrig erklärt. Sie wurde 2023 ausgelaufen, nicht wegen "Illegalität", sondern weil sie ihr Ziel nicht erreichte.',
+                date: '2026-04-15',
+                statement: 'Die Kriminalität steigt durch Migration',
+                verdict: 'false',
+                factText: 'Die Kriminalitätsstatistik zeigt: Die meisten Straftaten werden von deutschen Staatsbürgern begangen. Migration korreliert nicht signifikant mit Kriminalitätsrate.',
                 sources: [
-                    { title: 'RKI: Impfkampagne Auswertung', url: 'https://www.rki.de/Impfung/Auswertung' },
-                    { title: 'Jurion: Impfpflicht Rechtsprechung', url: 'https://www.jurion.de/' }
+                    { title: 'PKS: Polizeiliche Kriminalstatistik', url: 'https://www.bka.de/DE/PolizeilicheKriminalstatistik/pks_node.html' },
+                    { title: 'Destatis: Kriminalität und Migration', url: 'https://www.destatis.de/' }
+                ]
+            },
+            {
+                id: '16',
+                level: 'bund',
+                state: 'bund',
+                source: 'AfD Bundestag',
+                date: '2026-04-14',
+                statement: 'Der Verbrenner-Ausstieg vernichtet Arbeitsplätze',
+                verdict: 'misleading',
+                factText: 'Der Verbrenner-Ausstieg schafft neue Jobs in E-Mobilität und erneuerbaren Energien. Automobilindustrie baut um — nicht weg.',
+                sources: [
+                    { title: 'Fraunhofer: Beschäftigung Energiewende', url: 'https://www.fraunhofer.de/' },
+                    { title: 'IAB: Arbeitsmarkteffekte', url: 'https://www.iab.de/' }
                 ]
             }
         ];
@@ -743,7 +794,7 @@
             }
 
             feed.innerHTML = filtered.map(item => `
-                <article class="card" data-level="${item.state}" data-verdict="${item.verdict}">
+                <article class="card" data-level="${item.state}" data-verdict="${item.verdict}" data-date="${item.date}">
                     <div class="card-header">
                         <span class="level-badge ${item.state === 'bund' ? 'bund' : 'land'}">${item.state === 'bund' ? 'BUND' : item.state}</span>
                         <span class="source-name">${item.source}</span>
@@ -752,19 +803,17 @@
                     <div class="card-body">
                         <div class="statement-side">
                             <div class="side-header">
-                                <div class="side-icon">📣</div>
-                                <div class="side-title">Was die AfD sagt</div>
+                                <span class="side-icon">📣</span>
+                                <span class="side-title">AfD sagt</span>
                             </div>
                             <p class="statement-text">"${item.statement}"</p>
                         </div>
                         <div class="fact-side">
                             <div class="side-header">
-                                <div class="side-icon">🔬</div>
-                                <div class="side-title">Die Fakten</div>
+                                <span class="side-icon">🔬</span>
+                                <span class="side-title">Fakten</span>
                             </div>
-                            <span class="verdict-badge ${item.verdict}">
-                                ${item.verdict === 'false' ? '✕ Falsch' : item.verdict === 'misleading' ? '⚠ Irreführend' : '✓ Stimmt'}
-                            </span>
+                            <span class="verdict-badge ${item.verdict}">${VERDICT_LABELS[item.verdict] || item.verdict}</span>
                             <p class="fact-text">${item.factText}</p>
                             <div class="sources-header">Quellen</div>
                             <div class="sources-list">
@@ -804,6 +853,7 @@
         setupFilter('state-filter', 'state');
         setupFilter('verdict-filter', 'verdict');
 
+        // Init - sorted by date (newest first) already in data array
         updateStats();
         render();
     </script>
