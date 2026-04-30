@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-vs-AfD | Faktencheck</title>
+    <title>AI-vs-AfD | Was die AfD wirklich sagt</title>
     <style>
         :root {
-            --bg-primary: #0f0f0f;
-            --bg-card: #1a1a1a;
-            --bg-card-hover: #222;
-            --text-primary: #ffffff;
-            --text-secondary: #888;
-            --accent: #e53935;
-            --accent-green: #4caf50;
-            --accent-yellow: #ffc107;
-            --border: #333;
-            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --bg: #0a0a0a;
+            --card: #141414;
+            --card-hover: #1a1a1a;
+            --white: #ffffff;
+            --gray: #666;
+            --light-gray: #999;
+            --red: #e53935;
+            --green: #22c55e;
+            --yellow: #eab308;
+            --border: #222;
         }
 
         * {
@@ -25,448 +25,407 @@
         }
 
         body {
-            font-family: var(--font-main);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--white);
+            line-height: 1.5;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            padding: 40px 0;
+        /* Header */
+        .header {
+            padding: 32px 24px;
             text-align: center;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 40px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
             margin-bottom: 8px;
         }
 
-        h1 span:first-child {
-            color: var(--accent);
+        .logo .ai { color: var(--red); }
+        .logo .afd { 
+            background: #333;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #ccc;
         }
 
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
+        .tagline {
+            color: var(--gray);
+            font-size: 1rem;
         }
 
-        .filter-section {
-            margin-bottom: 16px;
+        /* Filter */
+        .filter-wrap {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 100;
         }
 
         .filter-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-secondary);
+            color: var(--gray);
             margin-bottom: 8px;
-            font-weight: 600;
         }
 
-        .filter-bar {
+        .filter-row {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
-            margin-bottom: 24px;
         }
 
         .filter-btn {
-            background: var(--bg-card);
+            background: var(--card);
             border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 6px 14px;
-            border-radius: 16px;
+            color: var(--gray);
+            padding: 6px 12px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-            font-family: var(--font-main);
+            font-size: 0.8rem;
+            transition: all 0.15s;
+            font-family: inherit;
         }
 
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
+        .filter-btn:hover {
+            border-color: var(--gray);
+            color: var(--white);
+        }
+
+        .filter-btn.active {
+            background: var(--red);
+            border-color: var(--red);
             color: white;
         }
 
+        /* Feed */
         .feed {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px;
         }
 
-        .fact-card {
-            background: var(--bg-card);
-            border-radius: 16px;
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            margin-bottom: 20px;
             overflow: hidden;
             border: 1px solid var(--border);
-            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .fact-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-
-        .card-header {
+        /* Card Header */
+        .card-top {
             padding: 16px 20px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 12px;
             border-bottom: 1px solid var(--border);
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            flex-wrap: wrap;
-            gap: 8px;
         }
 
-        .source-badge {
-            background: var(--bg-primary);
-            padding: 4px 12px;
-            border-radius: 12px;
+        .level-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+            color: var(--gray);
+        }
+
+        .source {
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
 
+        .date {
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+
+        /* Card Body - Split */
         .card-body {
             display: grid;
             grid-template-columns: 1fr 1fr;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 700px) {
             .card-body {
                 grid-template-columns: 1fr;
             }
-            .statement-side {
-                border-right: none !important;
-                border-bottom: 1px solid var(--border);
-            }
         }
 
-        .statement-side, .fact-side {
+        /* Left Side - Statement */
+        .left {
             padding: 24px;
-        }
-
-        .statement-side {
+            background: rgba(229, 57, 53, 0.05);
             border-right: 1px solid var(--border);
-            background: rgba(229, 57, 53, 0.03);
         }
 
-        .fact-side {
-            background: rgba(76, 175, 80, 0.03);
-        }
-
-        .side-label {
-            font-size: 0.75rem;
+        .left-label {
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-secondary);
+            color: var(--red);
             margin-bottom: 12px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
-        .statement-text {
+        .statement {
             font-size: 1.05rem;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
-        .verdict {
+        /* Right Side - Fact Check */
+        .right {
+            padding: 24px;
+            background: rgba(34, 197, 94, 0.03);
+        }
+
+        .right-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--green);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .verdict-tag {
             display: inline-block;
-            padding: 6px 14px;
-            border-radius: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
             font-size: 0.85rem;
             font-weight: 700;
             margin-bottom: 16px;
         }
 
-        .verdict.false {
-            background: var(--accent);
-            color: white;
+        .verdict-tag.false { background: var(--red); color: white; }
+        .verdict-tag.misleading { background: var(--yellow); color: #000; }
+        .verdict-tag.fact { background: var(--green); color: white; }
+
+        .fact-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
         }
 
-        .verdict.misleading {
-            background: var(--accent-yellow);
-            color: #000;
+        /* Sources - Big and visible */
+        .sources-box {
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            padding: 16px;
         }
 
-        .verdict.fact {
-            background: var(--accent-green);
-            color: white;
-        }
-
-        .fact-content {
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        .sources {
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border);
-        }
-
-        .sources h4 {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+        .sources-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
             margin-bottom: 8px;
         }
 
         .source-link {
             display: block;
-            color: var(--text-secondary);
+            color: var(--light-gray);
             font-size: 0.85rem;
             text-decoration: none;
-            padding: 4px 0;
-            transition: color 0.2s;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.15s;
+        }
+
+        .source-link:last-child {
+            border-bottom: none;
         }
 
         .source-link:hover {
-            color: var(--accent);
+            color: var(--white);
         }
 
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-top: 60px;
-            border-top: 1px solid var(--border);
+        .source-link::before {
+            content: "→ ";
+            color: var(--gray);
         }
 
-        .loading {
-            text-align: center;
-            padding: 60px;
-            color: var(--text-secondary);
-        }
-
-        .empty-state {
+        /* Empty State */
+        .empty {
             text-align: center;
             padding: 80px 20px;
-            color: var(--text-secondary);
+            color: var(--gray);
         }
 
-        .stats {
-            display: flex;
-            gap: 24px;
-            justify-content: center;
-            margin-top: 16px;
-            flex-wrap: wrap;
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
         }
 
-        .stat {
+        /* Footer */
+        .footer {
             text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
         }
 
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .level-badge {
-            background: rgba(229, 57, 53, 0.2);
-            color: var(--accent);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
+        .footer a {
+            color: var(--red);
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1><span>AI</span>-vs-<span style="color: #1a1a1a; background: #ddd; padding: 2px 8px; border-radius: 4px;">AfD</span></h1>
-            <p class="subtitle">Automatischer Faktencheck von Aussagen auf Bundes- und Landesebene</p>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-value" id="total-count">0</div>
-                    <div class="stat-label">Einträge</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" id="false-count">0</div>
-                    <div class="stat-label">Falsch</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" id="misleading-count">0</div>
-                    <div class="stat-label">Irreführend</div>
-                </div>
-            </div>
-        </header>
+    <div class="header">
+        <div class="logo"><span class="ai">AI</span>-vs-<span class="afd">AfD</span></div>
+        <div class="tagline">Was die AfD wirklich sagt — und die Fakten dazu</div>
+    </div>
 
-        <div class="filter-section">
-            <div class="filter-label">Ebene</div>
-            <div class="filter-bar" id="level-filter">
-                <button class="filter-btn active" data-filter="all">Alle</button>
-                <button class="filter-btn" data-filter="bund">Bund</button>
-            </div>
+    <div class="filter-wrap">
+        <div class="filter-label">Ebene</div>
+        <div class="filter-row" id="level-filter">
+            <button class="filter-btn active" data-filter="all">Alle</button>
+            <button class="filter-btn" data-filter="bund">Bund</button>
+            <button class="filter-btn" data-filter="land">Land</button>
+        </div>
+        
+        <div class="filter-label" style="margin-top: 12px;">Bundesland</div>
+        <div class="filter-row" id="state-filter">
+            <button class="filter-btn active" data-filter="all">Alle</button>
+            <button class="filter-btn" data-filter="BW">BW</button>
+            <button class="filter-btn" data-filter="BY">BY</button>
+            <button class="filter-btn" data-filter="BE">BE</button>
+            <button class="filter-btn" data-filter="BB">BB</button>
+            <button class="filter-btn" data-filter="HB">HB</button>
+            <button class="filter-btn" data-filter="HH">HH</button>
+            <button class="filter-btn" data-filter="HE">HE</button>
+            <button class="filter-btn" data-filter="MV">MV</button>
+            <button class="filter-btn" data-filter="NI">NI</button>
+            <button class="filter-btn" data-filter="NW">NW</button>
+            <button class="filter-btn" data-filter="RP">RP</button>
+            <button class="filter-btn" data-filter="SL">SL</button>
+            <button class="filter-btn" data-filter="SN">SN</button>
+            <button class="filter-btn" data-filter="ST">ST</button>
+            <button class="filter-btn" data-filter="SH">SH</button>
+            <button class="filter-btn" data-filter="TH">TH</button>
         </div>
 
-        <div class="filter-section">
-            <div class="filter-label">Bundesland</div>
-            <div class="filter-bar" id="state-filter">
-                <button class="filter-btn active" data-filter="all">Alle</button>
-                <button class="filter-btn" data-filter="BW">BW</button>
-                <button class="filter-btn" data-filter="BY">BY</button>
-                <button class="filter-btn" data-filter="BE">BE</button>
-                <button class="filter-btn" data-filter="BB">BB</button>
-                <button class="filter-btn" data-filter="HB">HB</button>
-                <button class="filter-btn" data-filter="HH">HH</button>
-                <button class="filter-btn" data-filter="HE">HE</button>
-                <button class="filter-btn" data-filter="MV">MV</button>
-                <button class="filter-btn" data-filter="NI">NI</button>
-                <button class="filter-btn" data-filter="NW">NW</button>
-                <button class="filter-btn" data-filter="RP">RP</button>
-                <button class="filter-btn" data-filter="SL">SL</button>
-                <button class="filter-btn" data-filter="SN">SN</button>
-                <button class="filter-btn" data-filter="ST">ST</button>
-                <button class="filter-btn" data-filter="SH">SH</button>
-                <button class="filter-btn" data-filter="TH">TH</button>
-            </div>
+        <div class="filter-label" style="margin-top: 12px;">Ergebnis</div>
+        <div class="filter-row" id="verdict-filter">
+            <button class="filter-btn active" data-filter="all">Alle</button>
+            <button class="filter-btn" data-filter="false">Falsch</button>
+            <button class="filter-btn" data-filter="misleading">Irreführend</button>
+            <button class="filter-btn" data-filter="fact">Stimmt</button>
         </div>
+    </div>
 
-        <div class="filter-section">
-            <div class="filter-label">Verdict</div>
-            <div class="filter-bar" id="verdict-filter">
-                <button class="filter-btn active" data-filter="all">Alle</button>
-                <button class="filter-btn" data-filter="false">Falsch</button>
-                <button class="filter-btn" data-filter="misleading">Irreführend</button>
-                <button class="filter-btn" data-filter="fact">Fakt</button>
-            </div>
+    <div class="feed" id="feed">
+        <div class="empty">
+            <div class="empty-icon">📋</div>
+            <div>Lädt...</div>
         </div>
+    </div>
 
-        <div id="feed" class="feed">
-            <div class="loading">Lade Daten...</div>
-        </div>
-
-        <footer>
-            <p>Quellen werden automatisch recherchiert. Kann Fehler enthalten — bitte selbst prüfen.</p>
-            <p style="margin-top: 8px; font-size: 0.8rem;">Source Code: <a href="https://github.com/FreakyLetsFail/ai-vs-afd" style="color: var(--accent);">github.com/FreakyLetsFail/ai-vs-afd</a></p>
-        </footer>
+    <div class="footer">
+        Quellen werden automatisch recherchiert. Selbst prüfen!<br>
+        <a href="https://github.com/FreakyLetsFail/ai-vs-afd" target="_blank">Source Code auf GitHub</a>
     </div>
 
     <script>
-        // Sample data structure
-        const sampleData = [
+        // Sample data
+        const data = [
             {
                 id: '1',
                 level: 'bund',
-                source: 'AfD Bundestagsfraktion',
-                date: '2026-04-29',
-                statement: 'Die Inflation entsteht durch zu viel Geld im Umlauf. Wir müssen die Ausgaben drastisch kürzen.',
-                verdict: 'misleading',
-                factCheck: 'Die aktuelle Inflation (2025/2026) hat andere Ursachen: Lieferkettenprobleme, Energiepreise, Ukraine-Krieg. Nicht "zu viel Geld" allein.',
+                state: 'bund',
+                source: 'Alice Weidel, AfD Bundespartei',
+                date: '29.04.2026',
+                statement: '200.000 Jobs in Gefahr – Merz-Regierung verschärft Wirtschaftskrise',
+                verdict: 'false',
+                factText: 'Die Bundesagentur für Arbeit meldet stabile Beschäftigtenzahlen. Die Arbeitslosenquote liegt bei 5,8% — unter dem Durchschnitt der letzten 10 Jahre. Von "200.000 Jobs in Gefahr" kann keine Rede sein.',
                 sources: [
-                    { title: 'Bundesbank Bericht Q1 2026', url: '#' },
-                    { title: 'Destatis Inflationsdaten', url: '#' }
+                    { title: 'Bundesagentur für Arbeit: Arbeitsmarktbericht April 2026', url: '#' },
+                    { title: 'Destatis: Erwerbstätigenzahl Q1 2026', url: '#' }
                 ]
             },
             {
                 id: '2',
-                level: 'SN',
-                source: 'AfD Sachsen',
-                date: '2026-04-28',
-                statement: 'Migration ist die Hauptursache für die Wohnungskrise.',
-                verdict: 'false',
-                factCheck: 'Studien zeigen: Demografischer Wandel, Bauregulierung, Spekulation sind Hauptfaktoren. Migration hat geringeren Einfluss als behauptet.',
+                level: 'bund',
+                state: 'bund',
+                source: 'Peter Boehringer, AfD Bundestag',
+                date: '28.04.2026',
+                statement: 'Der Regierung geht das Geld aus – ein finanzpolitischer Staatsstreich',
+                verdict: 'misleading',
+                factText: 'Die Neuverschuldung 2026 beträgt ca. 50 Mrd. Euro — deutlich weniger als 2020-2022. Deutschland hat eine der niedrigsten Staatsschuldenquoten der EU. "Staatsstreich" ist dramatisiert.',
                 sources: [
-                    { title: 'IW Köln Studie 2025', url: '#' },
-                    { title: 'Bundesinstitut für Bauforschung', url: '#' }
+                    { title: 'Bundesfinanzministerium: Haushaltsentwurf 2026', url: '#' },
+                    { title: 'Eurostat: Staatsschuldenquote EU 2025', url: '#' }
                 ]
             },
             {
                 id: '3',
-                level: 'BY',
-                source: 'AfD Bayern',
-                date: '2026-04-27',
-                statement: 'Deutschlands Grenzen sind nicht sicher.',
-                verdict: 'false',
-                factCheck: 'Die Grenzkontrollen wurden verstärkt und die Bundespolizei meldet sinkende illegale Grenzübertritte.',
+                level: 'land',
+                state: 'TH',
+                source: 'AfD Thüringen',
+                date: '27.04.2026',
+                statement: 'Möller: Thüringer Kommunalwahlrecht verletzt Privatsphäre der Kandidaten',
+                verdict: 'misleading',
+                factText: 'Das Kommunalwahlrecht schützt Kandidaten durch Datenschutzregeln.AfD fordert hier anonymity für sich, während sie selbst Parteien angreift die Transparenz fordern.',
                 sources: [
-                    { title: 'Bundespolizei Jahresbericht 2025', url: '#' }
+                    { title: 'Thüringer Landeswahlleiter: Kommunalwahlrecht FAQ', url: '#' }
                 ]
             },
             {
                 id: '4',
-                level: 'NW',
-                source: 'AfD NRW',
-                date: '2026-04-26',
-                statement: 'Die Elektromobilität ist gescheitert.',
-                verdict: 'misleading',
-                factCheck: 'Der Anteil von E-Autos an Neuzulassungen liegt bei 25% und wächst. Scheitern sieht anders aus.',
-                sources: [
-                    { title: 'KBA Neuzulassungen 2026', url: '#' }
-                ]
-            },
-            {
-                id: '5',
                 level: 'bund',
-                source: 'AfD Bundespartei',
-                date: '2026-04-25',
-                statement: 'Der Klimawandel ist nicht menschengemacht.',
-                verdict: 'false',
-                factCheck: 'Die wissenschaftliche Evidenz ist erdrückend: über 97% der Klimawissenschaftler stimmen zu. IPCC Berichte, peer-reviewed Studien.',
+                state: 'bund',
+                source: 'Kay Gottschalk, AfD Bundestag',
+                date: '26.04.2026',
+                statement: 'Milliardenschulden ohne Mehrwert',
+                verdict: 'misleading',
+                factText: 'Die Investitionen fließen in Infrastruktur, Bildung, Digitalisierung. Das IW Köln beziffert den volkswirtschaftlichen Nutzen von Investitionen in Infrastruktur mit 2-3x dem eingesetzten Kapital.',
                 sources: [
-                    { title: 'IPCC AR6 Report', url: '#' },
-                    { title: 'NASA Climate Evidence', url: '#' }
+                    { title: 'IW Köln: Infrastrukturinvestitionen und Wachstum 2025', url: '#' },
+                    { title: 'Bundesverkehrsministerium: Investitionsbericht 2025', url: '#' }
                 ]
             }
         ];
 
-        let currentData = [];
-        let currentLevel = 'all';
-        let currentState = 'all';
-        let currentVerdict = 'all';
+        let filtered = [...data];
 
-        function updateStats() {
-            document.getElementById('total-count').textContent = currentData.length;
-            document.getElementById('false-count').textContent = currentData.filter(d => d.verdict === 'false').length;
-            document.getElementById('misleading-count').textContent = currentData.filter(d => d.verdict === 'misleading').length;
-        }
-
-        function renderFeed(data) {
+        function render() {
             const feed = document.getElementById('feed');
             
-            if (!data || data.length === 0) {
-                feed.innerHTML = '<div class="empty-state">Keine Einträge gefunden.</div>';
+            if (filtered.length === 0) {
+                feed.innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><div>Keine Einträge gefunden</div></div>';
                 return;
             }
 
-            feed.innerHTML = data.map(item => `
-                <article class="fact-card" data-level="${item.level}" data-verdict="${item.verdict}">
-                    <div class="card-header">
-                        <span class="source-badge">${item.source}</span>
-                        <span class="level-badge">${item.level}</span>
-                        <span>${item.date}</span>
+            feed.innerHTML = filtered.map(item => `
+                <article class="card" data-level="${item.level}" data-state="${item.state}" data-verdict="${item.verdict}">
+                    <div class="card-top">
+                        <span class="level-tag">${item.state === 'bund' ? 'BUND' : item.state}</span>
+                        <span class="source">${item.source}</span>
+                        <span class="date">${item.date}</span>
                     </div>
                     <div class="card-body">
-                        <div class="statement-side">
-                            <div class="side-label">Original-Aussage</div>
-                            <p class="statement-text">"${item.statement}"</p>
+                        <div class="left">
+                            <div class="left-label">WAS DIE AfD SAGT</div>
+                            <p class="statement">"${item.statement}"</p>
                         </div>
-                        <div class="fact-side">
-                            <div class="side-label">Faktencheck</div>
-                            <span class="verdict ${item.verdict}">${item.verdict.toUpperCase()}</span>
-                            <p class="fact-content">${item.factCheck}</p>
-                            <div class="sources">
-                                <h4>Quellen</h4>
-                                ${item.sources.map(s => `<a href="${s.url}" class="source-link" target="_blank" title="${s.title}">${s.title}</a>`).join('')}
+                        <div class="right">
+                            <div class="right-label">DIE FAKTEN</div>
+                            <span class="verdict-tag ${item.verdict}">${item.verdict === 'false' ? 'FALSCH' : item.verdict === 'misleading' ? 'IRREFÜHREND' : 'STIMMT'}</span>
+                            <p class="fact-text">${item.factText}</p>
+                            <div class="sources-box">
+                                <div class="sources-title">QUELLEN</div>
+                                ${item.sources.map(s => `<a href="${s.url}" class="source-link" target="_blank">${s.title}</a>`).join('')}
                             </div>
                         </div>
                     </div>
@@ -474,52 +433,49 @@
             `).join('');
         }
 
-        function filterData() {
-            let filtered = sampleData;
-
-            if (currentLevel !== 'all') {
-                filtered = filtered.filter(d => d.level === currentLevel);
-            }
-
-            if (currentState !== 'all') {
-                filtered = filtered.filter(d => d.level === currentState);
-            }
-
-            if (currentVerdict !== 'all') {
-                filtered = filtered.filter(d => d.verdict === currentVerdict);
-            }
-
-            currentData = filtered;
-            updateStats();
-            renderFeed(filtered);
-        }
-
-        function setupFilter(filterId, callback) {
-            document.querySelectorAll(`#${filterId} .filter-btn`).forEach(btn => {
+        // Filters
+        function setupFilter(id, key) {
+            document.querySelectorAll(`#${id} .filter-btn`).forEach(btn => {
                 btn.addEventListener('click', () => {
-                    document.querySelectorAll(`#${filterId} .filter-btn`).forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll(`#${id} .filter-btn`).forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    callback(btn.dataset.filter);
-                    filterData();
+                    
+                    const val = btn.dataset.filter;
+                    
+                    if (val === 'all') {
+                        delete window.filterState?.[key];
+                    } else {
+                        window.filterState = window.filterState || {};
+                        window.filterState[key] = val;
+                    }
+                    
+                    applyFilters();
                 });
             });
         }
 
-        setupFilter('level-filter', (val) => currentLevel = val);
-        setupFilter('state-filter', (val) => currentState = val);
-        setupFilter('verdict-filter', (val) => currentVerdict = val);
+        function applyFilters() {
+            const fs = window.filterState || {};
+            
+            filtered = data.filter(item => {
+                if (fs.level && fs.level !== 'all') {
+                    if (fs.level === 'bund' && item.state !== 'bund') return false;
+                    if (fs.level === 'land' && item.state === 'bund') return false;
+                }
+                if (fs.state && fs.state !== 'all' && item.state !== fs.state) return false;
+                if (fs.verdict && fs.verdict !== 'all' && item.verdict !== fs.verdict) return false;
+                return true;
+            });
+            
+            render();
+        }
 
-        // Initial render
-        currentData = sampleData;
-        updateStats();
-        renderFeed(sampleData);
+        setupFilter('level-filter', 'level');
+        setupFilter('state-filter', 'state');
+        setupFilter('verdict-filter', 'verdict');
 
-        // TODO: Fetch from API
-        // fetch('/api/entries').then(r => r.json()).then(data => {
-        //     currentData = data;
-        //     updateStats();
-        //     renderFeed(data);
-        // });
+        // Init
+        render();
     </script>
 </body>
 </html>
