@@ -1,5 +1,6 @@
 /**
  * Fetcher Runner - Automatisiert das Sammeln von AfD Aussagen
+ * Nutzt headless Chrome für Scraping
  */
 
 const { chromium } = require('playwright');
@@ -13,7 +14,7 @@ const SOURCES = require('../../sources.json');
 class Runner {
     constructor() {
         this.browser = null;
-        this.stats = { fetched: 0, errors: 0 };
+        this.stats = { fetched: 0, errors: 0, entries: [] };
     }
 
     async init() {
@@ -26,82 +27,95 @@ class Runner {
         await fs.mkdir(DATA_DIR, { recursive: true });
     }
 
-    async fetchPage(url) {
+    async fetchPage(url, retries = 2) {
         const page = await this.browser.newPage();
         try {
-            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 });
-            await page.waitForTimeout(1000); // Let content render
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 });
+            await page.waitForTimeout(800);
             return await page.content();
+        } catch (err) {
+            if (retries > 0) {
+                console.log(`[Runner] Retry für ${url}`);
+                await this.randomDelay(1000, 2000);
+                return this.fetchPage(url, retries - 1);
+            }
+            throw err;
         } finally {
             await page.close();
         }
     }
 
-    async fetchPressReleases() {
+    async fetchAll() {
         console.log('[Runner] Sammle Pressemitteilungen...');
-        const entries = [];
         
-        // Bundesebene
-        console.log('[Runner] -> AfD Bundespresse');
-        const bundContent = await this.fetchPage('https://www.afd.de/presse/');
-        const bundEntries = this.parseAfDPresse(bundContent, 'bund');
-        entries.push(...bundEntries);
-        
-        // Landesebene - iterate through states
+        // 1. Bundesebene
+        console.log('[Runner] -> Bund (afd.de)');
+        try {
+            const bundContent = await this.fetchPage(SOURCES.bundesebene.pressReleases);
+            const entries = this.parsePressPage(bundContent, 'bund', 'AfD Bundespartei');
+            this.stats.entries.push(...entries);
+            console.log(`[Runner]   ${entries.length} Einträge von Bund`);
+        } catch (err) {
+            console.log(`[Runner]   Fehler Bund: ${err.message}`);
+            this.stats.errors++;
+        }
+
+        await this.randomDelay(1500, 3000);
+
+        // 2. Alle 16 Bundesländer
         for (const land of SOURCES.laender) {
             try {
-                console.log(`[Runner] -> ${land.name}`);
-                const content = await this.fetchPage(land.website + 'presse/');
-                const landEntries = this.parseAfDPresse(content, land.abbreviation);
-                entries.push(...landEntries);
-                await this.randomDelay(2000, 4000); // Be polite, delay between requests
+                console.log(`[Runner] -> ${land.name} (${land.abbreviation})`);
+                const content = await this.fetchPage(land.pressReleases);
+                const entries = this.parsePressPage(content, land.abbreviation, `AfD ${land.name}`);
+                this.stats.entries.push(...entries);
+                console.log(`[Runner]   ${entries.length} Einträge`);
             } catch (err) {
-                console.log(`[Runner] Fehler bei ${land.name}: ${err.message}`);
+                console.log(`[Runner]   Fehler ${land.name}: ${err.message}`);
                 this.stats.errors++;
             }
+            
+            await this.randomDelay(2000, 4000);
         }
-        
-        return entries;
+
+        return this.stats.entries;
     }
 
-    parseAfDPresse(html, level) {
-        // Simple extraction - in reality would need more sophisticated parsing
-        // Looking for article titles, dates, links
+    parsePressPage(html, level, sourceName) {
         const entries = [];
         
-        // Extract page title
-        const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
-        const pageTitle = titleMatch ? titleMatch[1] : '';
+        // Extrahiere Titel aus h2, h3, article tags
+        const titleMatches = html.match(/<h[23][^>]*>\s*<a[^>]*>([^<]+)<\/a>/gi) || [];
+        const articleMatches = html.match(/<article[^>]*>[\s\S]*?<h[23][^>]*>\s*([^<]+)/gi) || [];
         
-        // Look for article-like structures
-        const articlePatterns = [
-            /<h[23][^>]*>([^<]+)<\/h[23]>/gi,
-            /<a[^>]+href="([^"]+press[^"]+)"[^>]*>([^<]+)<\/a>/gi
-        ];
+        // Sammle alle Titel
+        const titles = new Set();
         
-        for (const pattern of articlePatterns) {
-            let match;
-            while ((match = pattern.exec(html)) !== null) {
-                const text = match[2] || match[1];
-                const url = match[1] || '';
-                
-                // Filter for actual press release content
-                if (text.length > 30 && !text.includes('Datenschutz') && !text.includes('Impressum')) {
-                    entries.push({
-                        id: this.generateId(),
-                        level,
-                        source: 'AfD',
-                        title: text.trim(),
-                        url: url.startsWith('http') ? url : 'https://www.afd.de' + url,
-                        fetched: new Date().toISOString(),
-                        content: '',
-                        analyzed: false
-                    });
-                }
+        for (const match of titleMatches) {
+            const titleMatch = match.match(/>([^<]+)</);
+            if (titleMatch && titleMatch[1].length > 15 && !titleMatch[1].includes('Datenschutz') && !titleMatch[1].includes('Impressum')) {
+                titles.add(titleMatch[1].trim());
             }
         }
         
-        return entries.slice(0, 20); // Limit per source
+        // Für jedes Land relevante Titel
+        for (const title of titles) {
+            entries.push({
+                id: this.generateId(),
+                level,
+                source: sourceName,
+                title: title,
+                url: '',
+                fetched: new Date().toISOString(),
+                statement: title,
+                analyzed: false,
+                verdict: null,
+                factCheck: null,
+                sources: []
+            });
+        }
+        
+        return entries.slice(0, 10);
     }
 
     generateId() {
@@ -112,17 +126,23 @@ class Runner {
         return new Promise(resolve => setTimeout(resolve, min + Math.random() * (max - min)));
     }
 
-    async saveEntries(entries) {
-        for (const entry of entries) {
-            const file = path.join(DATA_DIR, `entry-${entry.id}.json`);
-            await fs.writeFile(file, JSON.stringify(entry, null, 2));
+    async saveEntries() {
+        const saved = [];
+        for (const entry of this.stats.entries) {
+            try {
+                const file = path.join(DATA_DIR, `entry-${entry.id}.json`);
+                await fs.writeFile(file, JSON.stringify(entry, null, 2));
+                saved.push(entry.id);
+            } catch (err) {
+                console.log(`[Runner] Fehler beim Speichern: ${err.message}`);
+            }
         }
-        console.log(`[Runner] ${entries.length} Einträge gespeichert`);
+        console.log(`[Runner] ${saved.length} Einträge gespeichert`);
+        return saved;
     }
 
     async close() {
         if (this.browser) await this.browser.close();
-        console.log('[Runner] Beendet. Stats:', this.stats);
     }
 }
 
@@ -133,8 +153,9 @@ if (require.main === module) {
     (async () => {
         try {
             await runner.init();
-            const entries = await runner.fetchPressReleases();
-            await runner.saveEntries(entries);
+            await runner.fetchAll();
+            await runner.saveEntries();
+            console.log('[Runner] Stats:', runner.stats);
         } catch (err) {
             console.error('[Runner] Fehler:', err);
         } finally {

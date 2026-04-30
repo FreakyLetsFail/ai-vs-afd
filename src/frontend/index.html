@@ -32,7 +32,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -59,23 +59,36 @@
             font-size: 1.1rem;
         }
 
+        .filter-section {
+            margin-bottom: 16px;
+        }
+
+        .filter-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
         .filter-bar {
             display: flex;
-            gap: 12px;
+            gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 32px;
-            justify-content: center;
+            margin-bottom: 24px;
         }
 
         .filter-btn {
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-secondary);
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 6px 14px;
+            border-radius: 16px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.2s;
+            font-family: var(--font-main);
         }
 
         .filter-btn:hover, .filter-btn.active {
@@ -111,6 +124,8 @@
             border-bottom: 1px solid var(--border);
             font-size: 0.85rem;
             color: var(--text-secondary);
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .source-badge {
@@ -118,6 +133,7 @@
             padding: 4px 12px;
             border-radius: 12px;
             font-weight: 600;
+            font-size: 0.8rem;
         }
 
         .card-body {
@@ -125,9 +141,13 @@
             grid-template-columns: 1fr 1fr;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .card-body {
                 grid-template-columns: 1fr;
+            }
+            .statement-side {
+                border-right: none !important;
+                border-bottom: 1px solid var(--border);
             }
         }
 
@@ -137,11 +157,11 @@
 
         .statement-side {
             border-right: 1px solid var(--border);
-            background: rgba(229, 57, 53, 0.05);
+            background: rgba(229, 57, 53, 0.03);
         }
 
         .fact-side {
-            background: rgba(76, 175, 80, 0.05);
+            background: rgba(76, 175, 80, 0.03);
         }
 
         .side-label {
@@ -154,7 +174,7 @@
         }
 
         .statement-text {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             line-height: 1.7;
         }
 
@@ -204,8 +224,11 @@
             color: var(--text-secondary);
             font-size: 0.85rem;
             text-decoration: none;
-            padding: 6px 0;
+            padding: 4px 0;
             transition: color 0.2s;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .source-link:hover {
@@ -232,6 +255,38 @@
             padding: 80px 20px;
             color: var(--text-secondary);
         }
+
+        .stats {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .level-badge {
+            background: rgba(229, 57, 53, 0.2);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -239,14 +294,61 @@
         <header>
             <h1><span>AI</span>-vs-<span style="color: #1a1a1a; background: #ddd; padding: 2px 8px; border-radius: 4px;">AfD</span></h1>
             <p class="subtitle">Automatischer Faktencheck von Aussagen auf Bundes- und Landesebene</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="total-count">0</div>
+                    <div class="stat-label">Einträge</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="false-count">0</div>
+                    <div class="stat-label">Falsch</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="misleading-count">0</div>
+                    <div class="stat-label">Irreführend</div>
+                </div>
+            </div>
         </header>
 
-        <div class="filter-bar">
-            <button class="filter-btn active" data-filter="all">Alle</button>
-            <button class="filter-btn" data-filter="bund">Bund</button>
-            <button class="filter-btn" data-filter="misleading">Irreführend</button>
-            <button class="filter-btn" data-filter="false">Falsch</button>
-            <button class="filter-btn" data-filter="fact">Fakt</button>
+        <div class="filter-section">
+            <div class="filter-label">Ebene</div>
+            <div class="filter-bar" id="level-filter">
+                <button class="filter-btn active" data-filter="all">Alle</button>
+                <button class="filter-btn" data-filter="bund">Bund</button>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-label">Bundesland</div>
+            <div class="filter-bar" id="state-filter">
+                <button class="filter-btn active" data-filter="all">Alle</button>
+                <button class="filter-btn" data-filter="BW">BW</button>
+                <button class="filter-btn" data-filter="BY">BY</button>
+                <button class="filter-btn" data-filter="BE">BE</button>
+                <button class="filter-btn" data-filter="BB">BB</button>
+                <button class="filter-btn" data-filter="HB">HB</button>
+                <button class="filter-btn" data-filter="HH">HH</button>
+                <button class="filter-btn" data-filter="HE">HE</button>
+                <button class="filter-btn" data-filter="MV">MV</button>
+                <button class="filter-btn" data-filter="NI">NI</button>
+                <button class="filter-btn" data-filter="NW">NW</button>
+                <button class="filter-btn" data-filter="RP">RP</button>
+                <button class="filter-btn" data-filter="SL">SL</button>
+                <button class="filter-btn" data-filter="SN">SN</button>
+                <button class="filter-btn" data-filter="ST">ST</button>
+                <button class="filter-btn" data-filter="SH">SH</button>
+                <button class="filter-btn" data-filter="TH">TH</button>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-label">Verdict</div>
+            <div class="filter-bar" id="verdict-filter">
+                <button class="filter-btn active" data-filter="all">Alle</button>
+                <button class="filter-btn" data-filter="false">Falsch</button>
+                <button class="filter-btn" data-filter="misleading">Irreführend</button>
+                <button class="filter-btn" data-filter="fact">Fakt</button>
+            </div>
         </div>
 
         <div id="feed" class="feed">
@@ -255,6 +357,7 @@
 
         <footer>
             <p>Quellen werden automatisch recherchiert. Kann Fehler enthalten — bitte selbst prüfen.</p>
+            <p style="margin-top: 8px; font-size: 0.8rem;">Source Code: <a href="https://github.com/FreakyLetsFail/ai-vs-afd" style="color: var(--accent);">github.com/FreakyLetsFail/ai-vs-afd</a></p>
         </footer>
     </div>
 
@@ -268,7 +371,7 @@
                 date: '2026-04-29',
                 statement: 'Die Inflation entsteht durch zu viel Geld im Umlauf. Wir müssen die Ausgaben drastisch kürzen.',
                 verdict: 'misleading',
-                factCheck: 'Die aktuelle Inflation (2025/2026) hat andere Ursachen: Lieferkettenprobleme, Energiepreise, Ukraine-Krieg. Nicht简单的 "zu viel Geld".',
+                factCheck: 'Die aktuelle Inflation (2025/2026) hat andere Ursachen: Lieferkettenprobleme, Energiepreise, Ukraine-Krieg. Nicht "zu viel Geld" allein.',
                 sources: [
                     { title: 'Bundesbank Bericht Q1 2026', url: '#' },
                     { title: 'Destatis Inflationsdaten', url: '#' }
@@ -276,24 +379,72 @@
             },
             {
                 id: '2',
-                level: 'bund',
-                source: 'AfD Bundespartei',
+                level: 'SN',
+                source: 'AfD Sachsen',
                 date: '2026-04-28',
-                statement: 'Migration ist die Haupursache für die Wohnungskrise.',
+                statement: 'Migration ist die Hauptursache für die Wohnungskrise.',
                 verdict: 'false',
                 factCheck: 'Studien zeigen: Demografischer Wandel, Bauregulierung, Spekulation sind Hauptfaktoren. Migration hat geringeren Einfluss als behauptet.',
                 sources: [
                     { title: 'IW Köln Studie 2025', url: '#' },
                     { title: 'Bundesinstitut für Bauforschung', url: '#' }
                 ]
+            },
+            {
+                id: '3',
+                level: 'BY',
+                source: 'AfD Bayern',
+                date: '2026-04-27',
+                statement: 'Deutschlands Grenzen sind nicht sicher.',
+                verdict: 'false',
+                factCheck: 'Die Grenzkontrollen wurden verstärkt und die Bundespolizei meldet sinkende illegale Grenzübertritte.',
+                sources: [
+                    { title: 'Bundespolizei Jahresbericht 2025', url: '#' }
+                ]
+            },
+            {
+                id: '4',
+                level: 'NW',
+                source: 'AfD NRW',
+                date: '2026-04-26',
+                statement: 'Die Elektromobilität ist gescheitert.',
+                verdict: 'misleading',
+                factCheck: 'Der Anteil von E-Autos an Neuzulassungen liegt bei 25% und wächst. Scheitern sieht anders aus.',
+                sources: [
+                    { title: 'KBA Neuzulassungen 2026', url: '#' }
+                ]
+            },
+            {
+                id: '5',
+                level: 'bund',
+                source: 'AfD Bundespartei',
+                date: '2026-04-25',
+                statement: 'Der Klimawandel ist nicht menschengemacht.',
+                verdict: 'false',
+                factCheck: 'Die wissenschaftliche Evidenz ist erdrückend: über 97% der Klimawissenschaftler stimmen zu. IPCC Berichte, peer-reviewed Studien.',
+                sources: [
+                    { title: 'IPCC AR6 Report', url: '#' },
+                    { title: 'NASA Climate Evidence', url: '#' }
+                ]
             }
         ];
+
+        let currentData = [];
+        let currentLevel = 'all';
+        let currentState = 'all';
+        let currentVerdict = 'all';
+
+        function updateStats() {
+            document.getElementById('total-count').textContent = currentData.length;
+            document.getElementById('false-count').textContent = currentData.filter(d => d.verdict === 'false').length;
+            document.getElementById('misleading-count').textContent = currentData.filter(d => d.verdict === 'misleading').length;
+        }
 
         function renderFeed(data) {
             const feed = document.getElementById('feed');
             
             if (!data || data.length === 0) {
-                feed.innerHTML = '<div class="empty-state">Noch keine Einträge. Der Fetcher läuft bald automatisch.</div>';
+                feed.innerHTML = '<div class="empty-state">Keine Einträge gefunden.</div>';
                 return;
             }
 
@@ -301,6 +452,7 @@
                 <article class="fact-card" data-level="${item.level}" data-verdict="${item.verdict}">
                     <div class="card-header">
                         <span class="source-badge">${item.source}</span>
+                        <span class="level-badge">${item.level}</span>
                         <span>${item.date}</span>
                     </div>
                     <div class="card-body">
@@ -314,7 +466,7 @@
                             <p class="fact-content">${item.factCheck}</p>
                             <div class="sources">
                                 <h4>Quellen</h4>
-                                ${item.sources.map(s => `<a href="${s.url}" class="source-link" target="_blank">${s.title}</a>`).join('')}
+                                ${item.sources.map(s => `<a href="${s.url}" class="source-link" target="_blank" title="${s.title}">${s.title}</a>`).join('')}
                             </div>
                         </div>
                     </div>
@@ -322,32 +474,52 @@
             `).join('');
         }
 
-        // Filter handling
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const filter = btn.dataset.filter;
-                const cards = document.querySelectorAll('.fact-card');
-                
-                cards.forEach(card => {
-                    if (filter === 'all') {
-                        card.style.display = '';
-                    } else if (filter === 'bund' || filter === 'land') {
-                        card.style.display = card.dataset.level === filter ? '' : 'none';
-                    } else {
-                        card.style.display = card.dataset.verdict === filter ? '' : 'none';
-                    }
+        function filterData() {
+            let filtered = sampleData;
+
+            if (currentLevel !== 'all') {
+                filtered = filtered.filter(d => d.level === currentLevel);
+            }
+
+            if (currentState !== 'all') {
+                filtered = filtered.filter(d => d.level === currentState);
+            }
+
+            if (currentVerdict !== 'all') {
+                filtered = filtered.filter(d => d.verdict === currentVerdict);
+            }
+
+            currentData = filtered;
+            updateStats();
+            renderFeed(filtered);
+        }
+
+        function setupFilter(filterId, callback) {
+            document.querySelectorAll(`#${filterId} .filter-btn`).forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll(`#${filterId} .filter-btn`).forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    callback(btn.dataset.filter);
+                    filterData();
                 });
             });
-        });
+        }
+
+        setupFilter('level-filter', (val) => currentLevel = val);
+        setupFilter('state-filter', (val) => currentState = val);
+        setupFilter('verdict-filter', (val) => currentVerdict = val);
 
         // Initial render
+        currentData = sampleData;
+        updateStats();
         renderFeed(sampleData);
 
-        // TODO: Fetch from API endpoint
-        // fetch('/api/entries').then(r => r.json()).then(renderFeed);
+        // TODO: Fetch from API
+        // fetch('/api/entries').then(r => r.json()).then(data => {
+        //     currentData = data;
+        //     updateStats();
+        //     renderFeed(data);
+        // });
     </script>
 </body>
 </html>
