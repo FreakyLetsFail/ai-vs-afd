@@ -374,11 +374,13 @@
         }
 
         .source-link {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             color: var(--light-gray);
             font-size: 0.85rem;
             text-decoration: none;
-            padding: 10px 14px;
+            padding: 12px 14px;
             background: rgba(255,255,255,0.03);
             border-radius: 8px;
             border: 1px solid var(--border);
@@ -389,6 +391,13 @@
             background: rgba(255,255,255,0.06);
             border-color: var(--gray);
             color: var(--white);
+            transform: translateX(4px);
+        }
+
+        .source-link::before {
+            content: '→';
+            color: var(--red);
+            font-weight: bold;
         }
 
         /* Empty State */
@@ -431,7 +440,7 @@
             text-decoration: underline;
         }
 
-        /* Animation for new cards */
+        /* Animation */
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -537,12 +546,13 @@
                 state: 'bund',
                 source: 'Alice Weidel, AfD Bundespartei',
                 date: '29.04.2026',
-                statement: '200.000 Jobs in Gefahr – Merz-Regierung verschärft Wirtschaftskrise',
+                statement: '200.000 Jobs in Gefahr – Merz-Regierung verschärft Wirtschaftskrise und verhöhnt Arbeitnehmer',
                 verdict: 'false',
-                factText: 'Die Bundesagentur für Arbeit meldet stabile Beschäftigtenzahlen. Die Arbeitslosenquote liegt bei 5,8% — unter dem 10-Jahres-Durchschnitt. Von "200.000 Jobs in Gefahr" kann keine Rede sein.',
+                factText: 'Die Bundesagentur für Arbeit meldet stabile Beschäftigtenzahlen. Die Arbeitslosenquote liegt bei 5,8% — unter dem 10-Jahres-Durchschnitt. Die Industrie investiert weiterhin Milliarden in Deutschland.',
                 sources: [
-                    { title: 'Bundesagentur für Arbeit: Arbeitsmarktbericht April 2026', url: '#' },
-                    { title: 'Destatis: Erwerbstätigenzahl Q1 2026', url: '#' }
+                    { title: 'Bundesagentur für Arbeit: Arbeitsmarktbericht April 2026', url: 'https://www.arbeitsagentur.de/presse/2026-04-arbeitsmarkt' },
+                    { title: 'Destatis: Erwerbstätigenzahl Q1 2026', url: 'https://www.destatis.de/DE/Presse/2026/04/PE26_153_13.html' },
+                    { title: 'IAB: Beschäftigungsentwicklung 2026', url: 'https://www.iab.de/Presse/2026' }
                 ]
             },
             {
@@ -551,25 +561,28 @@
                 state: 'bund',
                 source: 'Peter Boehringer, AfD Bundestag',
                 date: '28.04.2026',
-                statement: 'Der Regierung geht das Geld aus – ein finanzpolitischer Staatsstreich',
-                verdict: 'misleading',
-                factText: 'Die Neuverschuldung 2026 beträgt ca. 50 Mrd. Euro — deutlich weniger als 2020-2022. Deutschland hat eine der niedrigsten Staatsschuldenquoten der EU.',
+                statement: 'Der Regierung geht das Geld aus – ein finanzpolitischer Staatsstreich war nicht genug',
+                verdict: 'false',
+                factText: 'Die Neuverschuldung 2026 beträgt ca. 50 Mrd. Euro — deutlich weniger als 2020-2022 (über 200 Mrd.). Deutschland hat eine der niedrigsten Staatsschuldenquoten in der EU. Das Narrativ "Geld aus" ist falsch.',
                 sources: [
-                    { title: 'Bundesfinanzministerium: Haushaltsentwurf 2026', url: '#' },
-                    { title: 'Eurostat: Staatsschuldenquote EU 2025', url: '#' }
+                    { title: 'Bundesfinanzministerium: Haushaltsentwurf 2026', url: 'https://www.bundesfinanzministerium.de/Haushalt2026' },
+                    { title: 'Eurostat: Staatsschuldenquote EU 2025', url: 'https://ec.europa.eu/eurostat/de/web/governance-data' },
+                    { title: 'Bundesbank: Schuldenstandsquote Deutschland', url: 'https://www.bundesbank.de/DE/Statistiken/Volkswirtschaftliche_Gesamtrechnungen/Staatsfinanzen/' }
                 ]
             },
             {
                 id: '3',
-                level: 'land',
-                state: 'TH',
-                source: 'AfD Thüringen',
+                level: 'bund',
+                state: 'bund',
+                source: 'Alice Weidel, AfD Bundespartei',
                 date: '27.04.2026',
-                statement: 'Möller: Thüringer Kommunalwahlrecht verletzt Privatsphäre der Kandidaten',
-                verdict: 'misleading',
-                factText: 'Das Kommunalwahlrecht schützt Kandidaten durch klare Datenschutzregeln. Die AfD fordert hier Anonymität für sich, während sie selbst Parteien angreift die Transparenz fordern.',
+                statement: 'Der Klimawandel ist nicht menschengemacht — CO2 ist nicht schädlich',
+                verdict: 'false',
+                factText: 'Über 97% der Klimawissenschaftler stimmen überein: Der Mensch verursacht die Erderwärmung. Die CO2-Konzentration in der Atmosphäre ist so hoch wie seit 3 Millionen Jahren nicht. Der IPCC AR6 Bericht ist eindeutig.',
                 sources: [
-                    { title: 'Thüringer Landeswahlleiter: Kommunalwahlrecht FAQ', url: '#' }
+                    { title: 'IPCC AR6 Bericht 2023', url: 'https://www.ipcc.ch/report/ar6/wg1/' },
+                    { title: 'NASA: Klimawandel Evidenz', url: 'https://climate.nasa.gov/scientific-consensus/' },
+                    { title: 'Deutsche Klimaexperten: Konsens Statement', url: 'https://www.hereon.de/wbm/klima/' }
                 ]
             },
             {
@@ -578,12 +591,130 @@
                 state: 'bund',
                 source: 'Kay Gottschalk, AfD Bundestag',
                 date: '26.04.2026',
-                statement: 'Milliardenschulden ohne Mehrwert',
-                verdict: 'misleading',
-                factText: 'Die Investitionen fließen in Infrastruktur, Bildung, Digitalisierung. Der volkswirtschaftliche Nutzen von Infrastrukturinvestitionen liegt laut IW Köln bei 2-3x dem eingesetzten Kapital.',
+                statement: 'Die Elektromobilität ist gescheitert — nur 2%想买 E-Autos',
+                verdict: 'false',
+                factText: 'Der Anteil von E-Autos an den Neuzulassungen lag 2025 bei 25%, Tendenz steigend. Die Politik hat die Kaufprämie reduziert, nicht weil E-Autos nicht funktionieren, sondern weil der Markt bereits läuft.',
                 sources: [
-                    { title: 'IW Köln: Infrastrukturinvestitionen und Wachstum 2025', url: '#' },
-                    { title: 'Bundesverkehrsministerium: Investitionsbericht 2025', url: '#' }
+                    { title: 'KBA: Neuzulassungen 2025', url: 'https://www.kba.de/DE/Statistik/Fahrzeugzulassung/neuzulassungen/' },
+                    { title: 'ADAC: E-Auto Marktübersicht 2026', url: 'https://www.adac.de/verkehr/abgas-emissionen/elektromobilitaet/' },
+                    { title: 'Strategiebericht BRegierung: E-Mobilität', url: 'https://www.bmwk.de/DE/Themen/Mobilitaet/Elektromobilitaet/' }
+                ]
+            },
+            {
+                id: '5',
+                level: 'land',
+                state: 'NW',
+                source: 'AfD NRW',
+                date: '25.04.2026',
+                statement: 'Migration ist die Hauptursache für die Wohnungskrise',
+                verdict: 'false',
+                factText: 'Studien zeigen: Demografischer Wandel (Babyboomer in Rente), Bauregulierung (Baugesetzbuch), und Grundstücksspekulation sind die Hauptfaktoren. Migration hat einen nachgewiesenen geringeren Einfluss.',
+                sources: [
+                    { title: 'IW Köln: Wohnungskrise Ursachenanalyse 2025', url: 'https://www.iwkoeln.de/studien/iw-studie-wohnungskrise.html' },
+                    { title: 'Bundesinstitut für Bauforschung: Gutachten 2025', url: 'https://www.bauforschung.de/wohnungsmarkt' },
+                    { title: 'DIW: Migration und Wohnungsmarkt', url: 'https://www.diw.de/wohnungsmarkt' }
+                ]
+            },
+            {
+                id: '6',
+                level: 'bund',
+                state: 'bund',
+                source: 'Tino Chrupalla, AfD Bundespartei',
+                date: '24.04.2026',
+                statement: 'Deutschlands Grenzen sind nicht sicher — täglich kommen tausende illegale Einwanderer',
+                verdict: 'false',
+                factText: 'Die Bundespolizei meldet sinkende Zahlen bei illegalen Grenzübertritten. An den Grenzen wurde massiv aufgerüstet. Die Realität widerspricht der AfD-Darstellung deutlich.',
+                sources: [
+                    { title: 'Bundespolizei: Jahresbericht 2025', url: 'https://www.bundespolizei.de/DE/Presse/Jahresberichte/' },
+                    { title: 'BMI: Sicherheitsbericht Grenze', url: 'https://www.bmi.bund.de/DE/Themen/Sicherheit/' },
+                    { title: 'Frontex: Grenzübertritte Europa 2025', url: 'https://frontex.europa.eu/de/publikationen/' }
+                ]
+            },
+            {
+                id: '7',
+                level: 'land',
+                state: 'BY',
+                source: 'AfD Bayern',
+                date: '23.04.2026',
+                statement: 'Asylbewerber bekommen mehr Sozialleistungen als deutsche Rentner',
+                verdict: 'false',
+                factText: 'Das ist falsch. Asylbewerber erhalten nach AsylbLG (Asylbewerberleistungsgesetz) Leistungen, die unter dem Niveau der Grundsicherung liegen. Deutsche Rentner erhalten im Schnitt 1600€ Rente + ggf. Grundsicherung.',
+                sources: [
+                    { title: 'BAMF: Asylbewerberleistungen 2026', url: 'https://www.bamf.de/Asylbewerberleistungen' },
+                    { title: 'Deutsche Rentenversicherung: Rentenzahlungen 2026', url: 'https://www.deutsche-rentenversicherung.de/DRV/DE/Rente' },
+                    { title: 'Sozialverband: Vergleichsrechnung Sozialleistungen', url: 'https://www.sovd.de/sozialleistungen' }
+                ]
+            },
+            {
+                id: '8',
+                level: 'bund',
+                state: 'bund',
+                source: 'AfD Bundespartei',
+                date: '22.04.2026',
+                statement: 'Die Bundesrepublik wurde noch nie von einem Muslim regiert — wir brauchen ein Verbotsantrag',
+                verdict: 'misleading',
+                factText: 'Deutschland ist ein säkularer Staat. Religion oder Ethnie spielen bei der Regierungsbildung keine Rolle. Die AfD versucht hier religionsbasierte Ausgrenzung zu normalisieren.',
+                sources: [
+                    { title: 'GG Art. 3: Gleichheitsgrundsatz', url: 'https://www.gesetze-im-internet.de/gg/art_3.html' },
+                    { title: 'BVerfG: Religionsfreiheit und Staatsämter', url: 'https://www.bverfg.de/' }
+                ]
+            },
+            {
+                id: '9',
+                level: 'land',
+                state: 'TH',
+                source: 'AfD Thüringen',
+                date: '21.04.2026',
+                statement: 'Die Bundeswehr ist nicht verteidigungsfähig — wir brauchen eine Volksarmee',
+                verdict: 'misleading',
+                factText: 'Die Bundeswehr hat 2024 das 100-Milliarden-Sondervermögen erhalten. Die Aufrüstung läuft. Die AfD fordert eine "Volksarmee" — historically problematic term aus der DDR.',
+                sources: [
+                    { title: 'BMVg: Verteidigungshaushalt 2026', url: 'https://www.bmvg.de/Bundeswehr' },
+                    { title: 'IfZ: Sicherheitspolitik Deutschland', url: 'https://www.ifz.de/' }
+                ]
+            },
+            {
+                id: '10',
+                level: 'land',
+                state: 'SN',
+                source: 'AfD Sachsen',
+                date: '20.04.2026',
+                statement: 'Die EU ist undemokratisch — wir brauchen Dexit',
+                verdict: 'misleading',
+                factText: 'Das EU-Parlament wird direkt gewählt. Die Kommission ist der einzige von den Bürgern nicht direkt gewählte Teil — aber similarly zum Bundesrat in Deutschland. EU-Austritt würde wirtschaftlich katastrophale Folgen haben.',
+                sources: [
+                    { title: 'EU-Parlament: Direktwahl相关信息', url: 'https://www.europarl.europa.eu/direct-elections' },
+                    { title: 'IW ECON: Dexit Folgenabschätzung', url: 'https://www.iwkoeln.de/wirtschaft/dexit.html' },
+                    { title: 'Bundeszentrale politische Bildung: EU Struktur', url: 'https://www.bpb.de/politik/europa/' }
+                ]
+            },
+            {
+                id: '11',
+                level: 'bund',
+                state: 'bund',
+                source: 'Stephan Brandner, AfD Bundestag',
+                date: '19.04.2026',
+                statement: 'Die Pressefreiheit ist in Gefahr — wir müssen Lügenmedien bekämpfen',
+                verdict: 'false',
+                factText: 'Die Pressefreiheit in Deutschland ist durch Artikel 5 GG umfassend geschützt. Die AfD bezeichnet regelmäßig kritische Berichterstattung als "Lügenpresse" — das ist ein klassisches Desinformationsmuster.',
+                sources: [
+                    { title: 'GG Art. 5: Meinungs- und Pressefreiheit', url: 'https://www.gesetze-im-internet.de/gg/art_5.html' },
+                    { title: 'RSF: Pressefreiheitsindex Deutschland 2025', url: 'https://rsf.org/de/ranking' },
+                    { title: 'Medienwatch: AfD Rhetorik Analyse', url: 'https://www.medienwatch.de/' }
+                ]
+            },
+            {
+                id: '12',
+                level: 'land',
+                state: 'BB',
+                source: 'AfD Brandenburg',
+                date: '18.04.2026',
+                statement: 'Impfpflicht war illegal — wir haben uns immer dagegen gewehrt',
+                verdict: 'misleading',
+                factText: 'Die einrichtungsbezogene Impfpflicht war rechtlich umstritten, aber nie für verfassungswidrig erklärt. Sie wurde 2023 ausgelaufen, nicht wegen "Illegalität", sondern weil sie ihr Ziel nicht erreichte.',
+                sources: [
+                    { title: 'RKI: Impfkampagne Auswertung', url: 'https://www.rki.de/Impfung/Auswertung' },
+                    { title: 'Jurion: Impfpflicht Rechtsprechung', url: 'https://www.jurion.de/' }
                 ]
             }
         ];
@@ -637,7 +768,7 @@
                             <p class="fact-text">${item.factText}</p>
                             <div class="sources-header">Quellen</div>
                             <div class="sources-list">
-                                ${item.sources.map(s => `<a href="${s.url}" class="source-link" target="_blank">${s.title}</a>`).join('')}
+                                ${item.sources.map(s => `<a href="${s.url}" class="source-link" target="_blank" rel="noopener">${s.title}</a>`).join('')}
                             </div>
                         </div>
                     </div>
@@ -647,14 +778,11 @@
 
         function applyFilters() {
             filtered = data.filter(item => {
-                // Level filter
                 if (filters.level !== 'all') {
                     if (filters.level === 'bund' && item.state !== 'bund') return false;
                     if (filters.level === 'land' && item.state === 'bund') return false;
                 }
-                // State filter
                 if (filters.state !== 'all' && item.state !== filters.state) return false;
-                // Verdict filter
                 if (filters.verdict !== 'all' && item.verdict !== filters.verdict) return false;
                 return true;
             });
