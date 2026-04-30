@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-vs-AfD | Faktencheck</title>
+    <style>
+        :root {
+            --bg-primary: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #222;
+            --text-primary: #ffffff;
+            --text-secondary: #888;
+            --accent: #e53935;
+            --accent-green: #4caf50;
+            --accent-yellow: #ffc107;
+            --border: #333;
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            padding: 40px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        h1 span:first-child {
+            color: var(--accent);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .feed {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .fact-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .fact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .source-badge {
+            background: var(--bg-primary);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 768px) {
+            .card-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .statement-side, .fact-side {
+            padding: 24px;
+        }
+
+        .statement-side {
+            border-right: 1px solid var(--border);
+            background: rgba(229, 57, 53, 0.05);
+        }
+
+        .fact-side {
+            background: rgba(76, 175, 80, 0.05);
+        }
+
+        .side-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .statement-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .verdict {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .verdict.false {
+            background: var(--accent);
+            color: white;
+        }
+
+        .verdict.misleading {
+            background: var(--accent-yellow);
+            color: #000;
+        }
+
+        .verdict.fact {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .fact-content {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .sources {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .sources h4 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .source-link {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-decoration: none;
+            padding: 6px 0;
+            transition: color 0.2s;
+        }
+
+        .source-link:hover {
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 60px;
+            border-top: 1px solid var(--border);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><span>AI</span>-vs-<span style="color: #1a1a1a; background: #ddd; padding: 2px 8px; border-radius: 4px;">AfD</span></h1>
+            <p class="subtitle">Automatischer Faktencheck von Aussagen auf Bundes- und Landesebene</p>
+        </header>
+
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">Alle</button>
+            <button class="filter-btn" data-filter="bund">Bund</button>
+            <button class="filter-btn" data-filter="misleading">Irreführend</button>
+            <button class="filter-btn" data-filter="false">Falsch</button>
+            <button class="filter-btn" data-filter="fact">Fakt</button>
+        </div>
+
+        <div id="feed" class="feed">
+            <div class="loading">Lade Daten...</div>
+        </div>
+
+        <footer>
+            <p>Quellen werden automatisch recherchiert. Kann Fehler enthalten — bitte selbst prüfen.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Sample data structure
+        const sampleData = [
+            {
+                id: '1',
+                level: 'bund',
+                source: 'AfD Bundestagsfraktion',
+                date: '2026-04-29',
+                statement: 'Die Inflation entsteht durch zu viel Geld im Umlauf. Wir müssen die Ausgaben drastisch kürzen.',
+                verdict: 'misleading',
+                factCheck: 'Die aktuelle Inflation (2025/2026) hat andere Ursachen: Lieferkettenprobleme, Energiepreise, Ukraine-Krieg. Nicht简单的 "zu viel Geld".',
+                sources: [
+                    { title: 'Bundesbank Bericht Q1 2026', url: '#' },
+                    { title: 'Destatis Inflationsdaten', url: '#' }
+                ]
+            },
+            {
+                id: '2',
+                level: 'bund',
+                source: 'AfD Bundespartei',
+                date: '2026-04-28',
+                statement: 'Migration ist die Haupursache für die Wohnungskrise.',
+                verdict: 'false',
+                factCheck: 'Studien zeigen: Demografischer Wandel, Bauregulierung, Spekulation sind Hauptfaktoren. Migration hat geringeren Einfluss als behauptet.',
+                sources: [
+                    { title: 'IW Köln Studie 2025', url: '#' },
+                    { title: 'Bundesinstitut für Bauforschung', url: '#' }
+                ]
+            }
+        ];
+
+        function renderFeed(data) {
+            const feed = document.getElementById('feed');
+            
+            if (!data || data.length === 0) {
+                feed.innerHTML = '<div class="empty-state">Noch keine Einträge. Der Fetcher läuft bald automatisch.</div>';
+                return;
+            }
+
+            feed.innerHTML = data.map(item => `
+                <article class="fact-card" data-level="${item.level}" data-verdict="${item.verdict}">
+                    <div class="card-header">
+                        <span class="source-badge">${item.source}</span>
+                        <span>${item.date}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="statement-side">
+                            <div class="side-label">Original-Aussage</div>
+                            <p class="statement-text">"${item.statement}"</p>
+                        </div>
+                        <div class="fact-side">
+                            <div class="side-label">Faktencheck</div>
+                            <span class="verdict ${item.verdict}">${item.verdict.toUpperCase()}</span>
+                            <p class="fact-content">${item.factCheck}</p>
+                            <div class="sources">
+                                <h4>Quellen</h4>
+                                ${item.sources.map(s => `<a href="${s.url}" class="source-link" target="_blank">${s.title}</a>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Filter handling
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                const cards = document.querySelectorAll('.fact-card');
+                
+                cards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = '';
+                    } else if (filter === 'bund' || filter === 'land') {
+                        card.style.display = card.dataset.level === filter ? '' : 'none';
+                    } else {
+                        card.style.display = card.dataset.verdict === filter ? '' : 'none';
+                    }
+                });
+            });
+        });
+
+        // Initial render
+        renderFeed(sampleData);
+
+        // TODO: Fetch from API endpoint
+        // fetch('/api/entries').then(r => r.json()).then(renderFeed);
+    </script>
+</body>
+</html>

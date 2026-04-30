@@ -1,0 +1,21 @@
+{
+  "name": "ai-vs-afd",
+  "version": "1.0.0",
+  "description": "Faktencheck Feed für AfD Aussagen",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "fetch": "node src/fetcher/runner.js",
+    "analyze": "node src/analyzer/runner.js",
+    "serve": "node src/frontend/server.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0",
+    "playwright": "^1.59.1",
+    "rss-parser": "^3.13.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

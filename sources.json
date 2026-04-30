@@ -1,0 +1,109 @@
+{
+  "bundesebene": {
+    "name": "AfD Bund",
+    "website": "https://www.afd.de/",
+    "twitterAccounts": [
+      "https://twitter.com/AfD",
+      "https://twitter.com/AfD_im_Bundestag"
+    ],
+    "pressReleases": "https://www.afd.de/presse/"
+  },
+  "laender": [
+    {
+      "name": "Baden-Württemberg",
+      "abbreviation": "BW",
+      "website": "https://www.afd-bw.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_BW"]
+    },
+    {
+      "name": "Bayern",
+      "abbreviation": "BY",
+      "website": "https://www.afd-bayern.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_Bayern"]
+    },
+    {
+      "name": "Berlin",
+      "abbreviation": "BE",
+      "website": "https://www.afd-berlin.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_Berlin"]
+    },
+    {
+      "name": "Brandenburg",
+      "abbreviation": "BB",
+      "website": "https://www.afd-brandenburg.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_Brb"]
+    },
+    {
+      "name": "Bremen",
+      "abbreviation": "HB",
+      "website": "https://www.afd-bremen.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_Bremen"]
+    },
+    {
+      "name": "Hamburg",
+      "abbreviation": "HH",
+      "website": "https://www.afd-hamburg.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_HH"]
+    },
+    {
+      "name": "Hessen",
+      "abbreviation": "HE",
+      "website": "https://www.afd-hessen.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_Hessen"]
+    },
+    {
+      "name": "Mecklenburg-Vorpommern",
+      "abbreviation": "MV",
+      "website": "https://www.afd-mv.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_MV"]
+    },
+    {
+      "name": "Niedersachsen",
+      "abbreviation": "NI",
+      "website": "https://www.afd-niedersachsen.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_NDS"]
+    },
+    {
+      "name": "Nordrhein-Westfalen",
+      "abbreviation": "NW",
+      "website": "https://www.afd-nrw.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_NRW"]
+    },
+    {
+      "name": "Rheinland-Pfalz",
+      "abbreviation": "RP",
+      "website": "https://www.afd-rp.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_RP"]
+    },
+    {
+      "name": "Saarland",
+      "abbreviation": "SL",
+      "website": "https://www.afd-saarland.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_SL"]
+    },
+    {
+      "name": "Sachsen",
+      "abbreviation": "SN",
+      "website": "https://www.afd-sachsen.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_Sachsen"]
+    },
+    {
+      "name": "Sachsen-Anhalt",
+      "abbreviation": "ST",
+      "website": "https://www.afd-lsa.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_LSA"]
+    },
+    {
+      "name": "Schleswig-Holstein",
+      "abbreviation": "SH",
+      "website": "https://www.afd-sh.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_SH"]
+    },
+    {
+      "name": "Thüringen",
+      "abbreviation": "TH",
+      "website": "https://www.afd-thueringen.de/",
+      "twitterAccounts": ["https://twitter.com/AfD_Thueringen"]
+    }
+  ]
+}
